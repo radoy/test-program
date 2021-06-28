@@ -34,4 +34,10 @@
     - Total number of players entered is 53, then it will distribute one card to each player and have one remaining
       card.
       
+### Language
+- PHP 
+- Javascript 
+- jQuery
+
 ### Screenshot
+![Ss](https://user-images.githubusercontent.com/907205/123569234-23f03600-d7f0-11eb-9388-52d0b2c4e4d3.png)
