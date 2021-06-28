@@ -1,0 +1,14 @@
+.m-l-15 {
+    margin-left: 5px !important;
+}
+
+.text-card {
+    font-weight: 500;
+    font-size: 16pt;
+}
+
+.control-label::after {
+    color: #d00;
+    font-size: 12pt;
+    content: " *";
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Deal a Deck of Cards</title>
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="stylesheet" href="../assets/style/bootstrap.min.css">
+<link rel="stylesheet" href="../assets/style/cards.css">
+<link rel="stylesheet" href="../assets/style/style.css">
+<body>
+
+<div class="container">
+    <h2>
+        Playing Cards
+        <small>Distribute 52 cards among the number of players evenly</small>
+    </h2>
+
+
+    <form id="form-deck" method="post" action="../backend/index.php">
+        <div class="form-group">
+            <label class="control-label" for="people">Number of people</label>
+            <input type="number" class="form-control" id="people" name="people" placeholder="Number of people play">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" onClick="window.location.reload();" class="btn btn-danger">Refresh Page</button>
+        <span id="ajax-load"></span>
+    </form>
+    <div id="result"></div>
+</div>
+
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+<script src="../assets/js/main.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        function refreshPage(){
+            window.location.reload();
+        }
+
+        $('#form-deck').validate({
+            rules: {
+                people: {
+                    required: true,
+                    min: 0,
+                },
+            },
+            messages: {
+                people: {
+                    required: "Please enter number of people play.",
+                    min: "Input value does not exist or value is invalid.",
+                },
+            },
+            submitHandler: function (form) {
+                $.ajax({
+                    url: form.action,
+                    type: form.method,
+                    data: $(form).serialize(),
+                    beforeSend: function () {
+                        $("#ajax-load").html('<img alt="loading.." src="../assets/img/progress.gif" style="border: none; height:24px; width:24px" />');
+                    },
+                    success: function (response) {
+                        $('#result').html(response);
+                    },
+                    error: function () {
+                        $('#result').html("An unexpected error has occurred. Please try again in a few moments.");
+                    },
+                    complete: function () {
+                        $("#ajax-load").html("");
+                    }
+                });
+            }
+        });
+    });
+</script>
+</body>
+</html>
